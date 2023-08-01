@@ -1,0 +1,57 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load hosts %}
+{% load authextra %}
+{% block content %}
+
+    <!-- Product Style -->
+    <section class="product-area shop-sidebar shop section">
+        <div class="container">
+            <div class="row">
+
+                <div class="col-lg-12 col-md-8 col-12">
+                    <div class="row">
+                        <div style="display: flex;justify-content:flex-start;align-items: flex-start" class="col-12">
+                            <H5>Our blogs<span><p class="fa fa-heart" style="color: orange"></p></span></H5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for blog in blogs %}
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-product shadow">
+                                    <div class="product-img"
+                                         style="height: 250px; width: auto;display: flex;justify-content: center">
+                                        <a href="/Blog/{{ blog.title }}">
+                                            <img style="height: 100%" class="default-img"
+                                                 src="{{ blog.image.url }}"
+                                                 alt="#">
+                                            <img class="hover-img"
+                                                 src="{{ blog.image.url }}"
+                                                 alt="#">
+                                        </a>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="/Blog/{{ blog.title }}">{{ blog.title }}</a>
+                                        <p style="font-size: 12px;font-weight: 400;">{{ blog.getShortDescription }}</p>
+                                        <div class="product-price">
+{#                                            <span>${{ art.price }}</span>#}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Product Style 1  -->
+
+    <script src="{% static 'js/other/sorting.js' %}"></script>
+
+
+
+
+{% endblock %}

@@ -1,0 +1,11 @@
+
+Django
+django-filter
+django-hosts
+djangorestframework
+Markdown
+Pillow
+pymemcache
+python-dateutil
+python-memcached
+django-cors-headers

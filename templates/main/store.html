@@ -1,0 +1,132 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load hosts %}
+{% load authextra %}
+{% block content %}
+
+    <!-- Product Style -->
+    <section class="product-area shop-sidebar shop section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-4 col-12">
+                    <div class="shop-sidebar">
+                        <!-- Single Widget -->
+                        <div class="single-widget category">
+                            <h3 class="title">Categories</h3>
+                            <ul class="categor-list">
+                                {% for category in categories %}
+                                    <li onclick="SearchCategory('{{ category.0 }}')"><p
+                                            {% if category.0 ==  selectedCategory %}
+                                                class="active"
+                                            {% endif %}
+                                                style="cursor: pointer;"
+                                    >{{ category.1 }}</p>
+                                    </li>
+
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-12">
+                    <div class="row">
+                        <div class="col-12">
+                            <!-- Shop Top -->
+                            <div class="shop-top">
+                                <div class="shop-shorter">
+                                    <div class="single-shorter">
+                                        <label>Show :</label>
+                                        <label for="itemCount"></label><select id="itemCount" onchange="changeLimit(event)">
+                                            {% for item in itemCount %}
+                                                <option {% if item.0 == selectedItemCount %}
+                                                    selected
+                                                {% endif %}  value="{{ item.0 }}">{{ item.1 }}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                    <div class="single-shorter">
+                                        <label>Sort By :</label>
+                                        <label>
+                                            <select class="sortBy" onchange="sortBy(event)">
+                                                {% for item in sortBy %}
+                                                    <option {% if item.0 == selectedSortBy %}
+                                                        selected
+                                                    {% endif %}  value="{{ item.0 }}">{{ item.1 }}</option>
+                                                {% endfor %}
+                                            </select>
+                                        </label>
+                                    </div>
+                                </div>
+                                <ul class="view-mode">
+                                    <li class="active"><a href="shop-grid.html"><i class="fa fa-th-large"></i></a></li>
+                                </ul>
+                            </div>
+                            <!--/ End Shop Top -->
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for art in arts %}
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-product shadow">
+                                    <div class="product-img"
+                                         style="height: 250px; width: auto;display: flex;justify-content: center">
+                                        <a href="/productDetail/{{ art.title }}">
+                                            <img style="height: 100%" class="default-img"
+                                                 src="{{ art.image.url }}"
+                                                 alt="#">
+                                            <img class="hover-img"
+                                                 src="{{ art.image.url }}"
+                                                 alt="#">
+                                        </a>
+                                        <div class="button-head">
+                                            <div class="product-action">
+                                                <a
+                                                        title="Quick View"
+                                                        href="/productDetail/{{ art.title }}"><i
+                                                        class=" ti-eye"></i><span>Quick Shop</span></a>
+
+                                                {% if user.is_authenticated %}
+                                                    <a title="Wishlist"
+                                                       href="addTowishList/{{ art.title }}"><i
+                                                            {% call_method art 'checkIfItemInWishList' user %}
+                                                            {% if user|isWishListed %}
+                                                                class="fa fa-heart"
+                                                            {% else %}
+                                                                class="ti-heart"
+                                                            {% endif %}
+
+                                                                style="color: orange"></i><span>Add to Wishlist </span></a>
+                                                {% endif %}
+                                            </div>
+                                            <div class="product-action-2">
+                                                <a title="Add to cart" onclick="AddToCart('{{ art.title }}')">Add to
+                                                    cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="/productDetail/{{ art.title }}">{{ art.title }}</a>
+                                        </h3>
+                                        <div class="product-price">
+                                            <span>${{ art.price }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Product Style 1  -->
+
+    <script src="{% static 'js/other/sorting.js' %}"></script>
+
+
+
+
+{% endblock %}

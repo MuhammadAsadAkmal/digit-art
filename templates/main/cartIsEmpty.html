@@ -1,0 +1,14 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load hosts %}
+{% block content %}
+
+    <div style="min-height: 500px; display: flex;justify-content: center;align-items: center;flex-direction: column">
+
+        <img style="height: 200px;width: auto;" src="{% static  'images/emptyCart.png' %}"/>
+        <H1 style="margin-top: 10px">Your cart is empty</H1>
+        <a href="/store"><H4 style="margin-top: 10px">Go to Shop</H4></a>
+
+    </div>
+
+{% endblock %}

@@ -1,0 +1,143 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load hosts %}
+{% load authextra %}
+{% block content %}
+
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bread-inner">
+                        <ul class="bread-list">
+                            <li><a href="{% host_url 'index' host 'www' %}">Home<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="/orders">Orders</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Breadcrumbs -->
+
+    <!-- Shopping Cart -->
+    <div class="shopping-cart section">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <!-- Shopping Summery -->
+                    <table class="table shopping-summery">
+                        <thead>
+                        <tr class="main-hading">
+                            <th>ORDER Id</th>
+                            <th>PRODUCTS</th>
+                            <th>STATUS</th>
+                            <th class="text-center">SUB TOTAL</th>
+                            <th class="text-center">SHIPPING</th>
+                            <th class="text-center">TOTAL</th>
+                            <th class="text-center"><i class="fa fa-eye"></i></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for item in orders %}
+                            <tr>
+                                <td class="image" data-title="No"><p>{{ item.id }}</p></td>
+                                <td class="product-des" data-title="Description">
+                                    <ul style="list-style-type: disc !important;">
+                                        {% for cartItem in item.getCartItems %}
+                                            <li><a href="#"><span
+                                                    style="font-weight: bold">-</span>{{ cartItem.art.title }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </td>
+                                <td class="price" data-title="Price"><span>{{ item.getStatusValue }}</span></td>
+                                <td class="price" data-title="Price"><span>${{ item.getSubTotal }}</span></td>
+                                <td class="price" data-title="Price"><span>${{ item.getShippingTotal }}</span>
+                                </td>
+                                <td class="total-amount" data-title="Total">
+                                    <span>${{ item.getTotalPrice }}</span></td>
+                                <td class="action" data-title="Remove"><a href="invoice/{{ item.id }}"><i
+                                        class="fa fa-eye"></i></a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                    <!--/ End Shopping Summery -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--/ End Shopping Cart -->
+
+    <!-- Start Shop Services Area  -->
+    <section class="shop-services section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="ti-rocket"></i>
+                        <h4>Free shiping</h4>
+                        <p>Orders over $100</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="ti-reload"></i>
+                        <h4>Free Return</h4>
+                        <p>Within 30 days returns</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="ti-lock"></i>
+                        <h4>Sucure Payment</h4>
+                        <p>100% secure payment</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+                <div class="col-lg-3 col-md-6 col-12">
+                    <!-- Start Single Service -->
+                    <div class="single-service">
+                        <i class="ti-tag"></i>
+                        <h4>Best Peice</h4>
+                        <p>Guaranteed price</p>
+                    </div>
+                    <!-- End Single Service -->
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Shop Newsletter -->
+
+    <!-- Start Shop Newsletter  -->
+    <section class="shop-newsletter section">
+        <div class="container">
+            <div class="inner-top">
+                <div class="row">
+                    <div class="col-lg-8 offset-lg-2 col-12">
+                        <!-- Start Newsletter Inner -->
+                        <div class="inner">
+                            <h4>Newsletter</h4>
+                            <p> Subscribe to our newsletter and get <span>10%</span> off your first purchase</p>
+                            <form action="mail/mail.php" method="get" target="_blank" class="newsletter-inner">
+                                <input name="EMAIL" placeholder="Your email address" required="" type="email">
+                                <button class="btn">Subscribe</button>
+                            </form>
+                        </div>
+                        <!-- End Newsletter Inner -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- End Shop Newsletter -->
+
+{% endblock %}

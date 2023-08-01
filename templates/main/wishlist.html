@@ -1,0 +1,84 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load hosts %}
+{% load authextra %}
+{% block content %}
+
+    <!-- Product Style -->
+    <section class="product-area shop-sidebar shop section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-1 col-md-4 col-12">
+                    <div class="shop-sidebar">
+                        <!-- Single Widget -->
+
+                    </div>
+                </div>
+                <div class="col-lg-9 col-md-8 col-12">
+                    <div class="row">
+                        <div style="display: flex;justify-content:flex-start;align-items: flex-start" class="col-12">
+                          <H5>Whist Listed Items <span ><p class="fa fa-heart" style="color: orange"></p></span></H5>
+                        </div>
+                    </div>
+                    <div class="row">
+                        {% for art in wishListItems %}
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="single-product shadow">
+                                    <div class="product-img"
+                                         style="height: 250px; width: auto;display: flex;justify-content: center">
+                                        <a href="/productDetail/{{ art.title }}">
+                                            <img style="height: 100%" class="default-img"
+                                                 src="{{ art.image.url }}"
+                                                 alt="#">
+                                            <img class="hover-img"
+                                                 src="{{ art.image.url }}"
+                                                 alt="#">
+                                        </a>
+                                        <div class="button-head">
+                                            <div class="product-action">
+                                                <a
+                                                        title="Quick View"
+                                                        href="/productDetail/{{ art.title }}"><i
+                                                        class=" ti-eye"></i><span>Quick Shop</span></a>
+
+                                                <a title="Wishlist"
+                                                   href="addTowishList/{{ art.title }}"><i
+                                                        {% call_method art 'checkIfItemInWishList' user %}
+                                                        {% if user|isWishListed %}
+                                                            class="fa fa-heart"
+                                                        {% else %}
+                                                            class="ti-heart"
+                                                        {% endif %}
+
+                                                            style="color: orange"></i><span>Add to Wishlist </span></a>
+                                            </div>
+                                            <div class="product-action-2">
+                                                <a title="Add to cart" href="#">Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="product-content">
+                                        <h3><a href="/productDetail/{{ art.title }}">{{ art.title }}</a>
+                                        </h3>
+                                        <div class="product-price">
+                                            <span>${{ art.price }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--/ End Product Style 1  -->
+
+    <script src="{% static 'js/other/sorting.js' %}"></script>
+
+
+
+
+{% endblock %}

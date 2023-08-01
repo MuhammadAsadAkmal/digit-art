@@ -1,0 +1,68 @@
+{% extends "main/base.html" %}
+{% load static %}
+{% load hosts %}
+{% block content %}
+    <div class="breadcrumbs">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="bread-inner">
+                        <ul class="bread-list">
+                            <li><a href="{% host_url 'index' host 'www' %}">Home<i class="ti-arrow-right"></i></a></li>
+                            <li class="active"><a href="#">{{ art.title }}</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-body">
+                <div class="row no-gutters">
+                    <div style="display: flex;justify-content: center;align-items: center" class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <!-- Product Slider -->
+                        <div class="product-gallery">
+                        </div>
+                        <div style="height: 500px; width: auto; display: flex; flex:1; justify-content: center; "  class="center">
+                            <img src="{{ art.image.url }}" class="center" alt="#">
+
+                        </div>
+                        <!-- End Product slider -->
+                    </div>
+                    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12">
+                        <div class="quickview-content">
+                            <h2>{{ art.title }}</h2>
+                            <h3>${{ art.price }}</h3>
+                            <div class="quickview-peragraph">
+                                <p>{{ art.description }}</p>
+                            </div>
+                            <div class="size font-weight-bold">
+                                <p style="color: black" class="font-weight-bold">Style
+                                    <span class="font-weight-light">{{ art.getStyleValue }}</span>
+                                </p>
+                                <p style="color: black">Medium
+                                    <span class="font-weight-light">{{ art.getMediumValue }}</span>
+                                </p>
+                                <p style="color: black">Subject
+                                    <span class="font-weight-light">{{ art.getSubjectValue }}</span>
+                                </p>
+                                <p style="color: black">Category
+                                    <span class="font-weight-light">{{ art.getCategoryValue }}</span>
+                                </p>
+                            </div>
+
+                            <div class="add-to-cart">
+                                <button type="button" id="addtocart" onclick="AddToCart('{{ art.title }}')" class="btn">Add to cart</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<script src="{% static 'js/other/addToCart.js' %}"></script>
+{% endblock %}
